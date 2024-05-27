@@ -211,6 +211,7 @@ export const getWorkoutsByDate = async (req, res, next) => {
       (total, workout) => total + workout.caloriesBurned,
       0
     );
+    
 
     return res.status(200).json({ todaysWorkouts, totalCaloriesBurnt });
   } catch (err) {

@@ -44,18 +44,20 @@ const SignUp = () => {
     setLoading(true);
     setButtonDisabled(true);
     if (validateInputs()) {
-      await UserSignUp({ name, email, password })
-        .then((res) => {
+      try {
+        const res = await UserSignUp({ name, email, password });
+        if (res && res.data) {
           dispatch(loginSuccess(res.data));
           alert("Account Created Success");
-          setLoading(false);
-          setButtonDisabled(false);
-        })
-        .catch((err) => {
-          alert(err.response.data.message);
-          setLoading(false);
-          setButtonDisabled(false);
-        });
+        } else {
+          alert("Unexpected response format");
+        }
+      } catch (err) {
+        alert(err.response?.data?.message || "An error occurred");
+      } finally {
+        setLoading(false);
+        setButtonDisabled(false);
+      }
     }
   };
   return (
@@ -64,6 +66,7 @@ const SignUp = () => {
         <Title>Create New Account 👋</Title>
         <Span>Please enter details to create a new account</Span>
       </div>
+      <form onSubmit={handelSignUp}> 
       <div
         style={{
           display: "flex",
@@ -71,6 +74,7 @@ const SignUp = () => {
           flexDirection: "column",
         }}
       >
+        
         <TextInput
           label="Full name"
           placeholder="Enter your full name"
@@ -88,15 +92,18 @@ const SignUp = () => {
           placeholder="Enter your password"
           password
           value={password}
-          handelChange={(e) => setPassword(e.target.value)}
-        />
+          handelChange ={(e) => setPassword(e.target.value)}
+        />                                        
         <Button
+        type="submit"
           text="SignUp"
           onClick={handelSignUp}
           isLoading={loading}
           isDisabled={buttonDisabled}
         />
+       
       </div>
+      </form>
     </Container>
   );
 };
