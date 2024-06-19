@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 app.use(cors(
   {
-    origin : ["fitness-track-xr97.vercel.app"],
+    origin : ["https://fitness-track-3s4c.vercel.app/"],
     methods : ["GET" ,"POST"],
     credentials:true
 
