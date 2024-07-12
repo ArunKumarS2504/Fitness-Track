@@ -7,18 +7,9 @@ import UserRoutes from "./routes/User.js";
 dotenv.config();
 
 const app = express();
-<<<<<<< HEAD
-app.use(cors());
-=======
-app.use(cors(
-  {
-    origin : ["https://fitness-track-3s4c.vercel.app/"],
-    methods : ["GET" ,"POST"],
-    credentials:true
 
-  }
-));
->>>>>>> e85cda8a7560173cb8a867232e371c7570f68efe
+app.use(cors());
+
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true })); // for form data
 
